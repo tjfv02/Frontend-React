@@ -13,6 +13,10 @@ import Usuarios from "./pages/Usuarios"
 import UsuariosRoles from "./pages/UsuariosRoles";
 import RolesFunciones from "./pages/RolesFunciones";
 import ListadoRolesFunciones from "./components/ListadoRolesFunciones";
+import Reportes from "./pages/Reportes";
+import { iniciarSesion } from "./services/loginService";
+import Login from "./layouts/Login";
+import SignUp from "./layouts/SignUp";
 
 const App = () => {
 
@@ -94,13 +98,28 @@ const App = () => {
     
   }
 
+  // -------------------- Login --------------------
+  // const [loginUser, setLoginUser] = useState({})
+
+  // // POST: 
+  // const iniciarSesion = iniciarSesion(loginUser);
+
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NavBar/>}>
 
-          <Route index element={<PaginaPrincipal/>} />
+          <Route index element={
+            <div className="mt-12 md:flex">
+              <Login/>
+              <SignUp 
+                usuarios={usuarios}
+                usuario={usuario}
+                setUsuario={setUsuario}
+              />
+            </div>
+          } />
 
           <Route path="/users" element={
             <div className="mt-12 md:flex">
@@ -189,6 +208,13 @@ const App = () => {
               />
             </div>
           }/>
+
+          <Route path="/reports" element={
+            <Reportes 
+              roles={roles}
+              usuarios={usuarios}
+            />
+          } />
 
         </Route>
 

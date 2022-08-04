@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {  crearUsuario, editarUsuario } from "../services/userServices";
 
-const Usuarios = ({usuarios,setUsuarios, usuario, setUsuario}) => {
+const SignUp = ({usuarios, usuario, setUsuario}) => {
    //Datos Formulario
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
@@ -33,12 +33,9 @@ const Usuarios = ({usuarios,setUsuarios, usuario, setUsuario}) => {
         status : status
       }
 
-      if (usuario.idUser) {
         editarUsuario(usuario.idUser, objetoUsuario);
         setUsuario({});
-      }else{
-        crearUsuario(objetoUsuario);
-      }
+      
 
       //Limpieza de formulario
       setUsername('');
@@ -50,18 +47,18 @@ const Usuarios = ({usuarios,setUsuarios, usuario, setUsuario}) => {
        
 
  return (
-   <div className="md:w-1/2 lg:w-2/5 mt-10">
+   <div className="md:w-1/2 lg:w-2/4 mt-10 p-3">
      <h2 className="font-black text-3xl text-center">
-       Usuarios
+       Registrate!
      </h2>
 
      <p className="text-lg mt-5 text-center mb-10">
 
        <span className="text-blue-600 font-bold ">
-       {usuario.idUser ? "Edita " : "Crea "}
+       Crea 
        </span>
 
-       {' '}Usuarios
+       {' '}tu Usuario
 
      </p>
 
@@ -142,11 +139,11 @@ const Usuarios = ({usuarios,setUsuarios, usuario, setUsuario}) => {
        <input
          type = "submit"
          className = "bg-blue-600 w-full text-white uppercase font-bold hover:bg-blue-800 cursor-pointer transition-colors p-3 rounded"
-         value = {usuario.idUser ? "Editar Usuario" : "Agregar Usuario"}
+         value = {"Agregar Usuario"}
        />
      </form>
    </div>
  )
 }
 
-export default Usuarios
+export default SignUp
