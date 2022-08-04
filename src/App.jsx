@@ -3,12 +3,16 @@ import { useState, useEffect } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ListadoFunciones from "./components/ListadoFunciones";
 import ListadoRoles from "./components/ListadoRoles";
+import ListadoUsuariosRoles from "./components/ListadoUsuariosRoles";
 import ListadoUsuarios from "./components/ListadoUsuarios";
 import NavBar from "./layouts/NavBar";
 import PaginaPrincipal from "./layouts/PaginaPrincipal";
 import Funciones from "./pages/Funciones"
 import Roles from "./pages/Roles";
 import Usuarios from "./pages/Usuarios"
+import UsuariosRoles from "./pages/UsuariosRoles";
+import RolesFunciones from "./pages/RolesFunciones";
+import ListadoRolesFunciones from "./components/ListadoRolesFunciones";
 
 const App = () => {
 
@@ -57,6 +61,39 @@ const App = () => {
     setFunciones(response.data);
     
   }
+
+  // -------------------- Usuarios-Roles --------------------
+  const [usuariosRoles, setUsuariosRoles] = useState([])  ;
+  const [usuarioRol, setUsuarioRol] = useState({});
+
+  useEffect(() => {
+    listarUsuariosRoles()
+  }, [usuariosRoles])
+  
+  
+  //API GET
+  const listarUsuariosRoles = async() => {
+    const response = await axios.get('http://localhost:4000/user_rol');
+    setUsuariosRoles(response.data);
+    
+  }
+
+  // -------------------- Roles-Funciones --------------------
+  const [rolesFunciones, setRolesFunciones] = useState([])  ;
+  const [rolFuncion, setRolFuncion] = useState({});
+
+  useEffect(() => {
+    listarRolesFunciones()
+  }, [rolesFunciones])
+  
+  
+  //API GET
+  const listarRolesFunciones = async() => {
+    const response = await axios.get('http://localhost:4000/rol_function');
+    setRolesFunciones(response.data);
+    
+  }
+
 
   return (
     <BrowserRouter>
@@ -116,6 +153,42 @@ const App = () => {
 
          </div>
           } />
+
+          <Route path="/user_rol" element={
+            <div className="mt-12 md:flex">
+              <UsuariosRoles
+                usuariosRoles={usuariosRoles}
+                setUsuariosRoles={setUsuariosRoles}
+                usuarioRol = {usuarioRol}
+                setUsuarioRol = {setUsuarioRol}
+                // asignaciones
+                usuarios={usuarios}
+                roles={roles}
+              />
+              <ListadoUsuariosRoles 
+                usuariosRoles={usuariosRoles}
+                setUsuarioRol={setUsuarioRol}
+              />
+            </div>
+          }/>
+
+          <Route path="/rol_function" element={
+            <div className="mt-12 md:flex">
+              <RolesFunciones 
+                rolesFunciones={rolesFunciones}
+                setRolesFunciones={setRolesFunciones}
+                rolFuncion = {rolFuncion}
+                setRolFuncion = {setRolFuncion}
+                // asignaciones
+                roles={roles}
+                funciones={funciones}
+              />
+              <ListadoRolesFunciones 
+                rolesFunciones={rolesFunciones}
+                setRolFuncion={setRolFuncion}
+              />
+            </div>
+          }/>
 
         </Route>
 

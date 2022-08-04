@@ -37,7 +37,6 @@ const Roles = ({roles, setRoles, rol, setRol}) => {
     setDescription('');
     setStatus('');
   }
-  //Crear Roles
   return (
     <div className="md:w-1/2 lg:w-2/5 mt-10">
      <h2 className="font-black text-3xl text-center">
